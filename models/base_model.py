@@ -2,8 +2,7 @@
 # Task: Defines the BaseModel class."""
 """Importing all files for the Class File"""
 
-import models
-
+import models 
 from uuid import uuid4
 from datetime import datetime
 
@@ -33,7 +32,7 @@ class BaseModel:
                     self.__dict__[key] = value
 
             if not self.__dict__ in FileStorage.__objects:
-                models.storage.new(self)
+                self.storage.new()
 
         else:
             pass
@@ -44,7 +43,7 @@ class BaseModel:
         self.updated_at = datetime.now()
 
         '''Save the instance to the file_storage.'''
-        self.storage.save()
+        storage.save(self)
 
     def to_dict(self):
         """Return the dictionary of the BaseModel instance.
