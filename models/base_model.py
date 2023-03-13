@@ -1,11 +1,7 @@
 #!/usr/bin/python3
 # Task: Defines the BaseModel class."""
-"""Importing all files for the Class File
-models: to import all packages 
-uuid: module for generating a unique user id
-datatime: Module for keeping track of time and date"""
+"""Importing all files for the Class File"""
 
-import models
 from uuid import uuid4
 from datetime import datetime
 
@@ -19,13 +15,14 @@ class BaseModel:
             *args (any): Unused.
             **kwargs (dict): Key/value pairs of attributes.
         """
-        
+
         self.id = str(uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
         if len(kwargs) != 0:
+            del kwargs['__class__']
             for key, value in kwargs.items():
-                if key == "created_at" or k == "updated_at":
+                if key == "created_at" or key == "updated_at":
                     self.__dict__[key] = datetime.fromisoformat(value)
                 else:
                     self.__dict__[key] = value
@@ -35,7 +32,6 @@ class BaseModel:
     def save(self):
         """Update updated_at with the current datetime."""
         self.updated_at = datetime.now()
-        
 
     def to_dict(self):
         """Return the dictionary of the BaseModel instance.
@@ -51,4 +47,26 @@ class BaseModel:
     def __str__(self):
         """Return the print/str representation of the BaseModel instance."""
         clname = self.__class__.__name__
-        return "[{}] ({}) {}".format(clname, self.id, self.__dict__)
+        return f"[{clname}] ({self.id}) {self.__dict__}".format(clname, self.id, self.__dict__)
+
+my_model = BaseModel()
+my_model.name = "My_First_Model"
+my_model.my_number = 89
+print(my_model.id)
+print(my_model)
+print(type(my_model.created_at))
+print("--")
+my_model_json = my_model.to_dict()
+print(my_model_json)
+print("JSON of my_model:")
+for key in my_model_json.keys():
+    print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
+
+print("--")
+my_new_model = BaseModel(**my_model_json)
+print(my_new_model.id)
+print(my_new_model)
+print(type(my_new_model.created_at))
+
+print("--")
+print(my_model is my_new_model)
