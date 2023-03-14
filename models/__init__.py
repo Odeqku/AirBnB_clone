@@ -1,12 +1,7 @@
-#!/usr/bin/python2
-
+#!/usr/bin/python3
+"""__init__ magic method for models directory"""
 from models.engine.file_storage import FileStorage
 
-try:
-	storage = FileStorage()
-	"""Loading the json string back to the dictionary"""
-	storage.reload()
 
-except FileNotFoundError:
-	pass
-
+storage = FileStorage()
+storage.reload()
