@@ -13,11 +13,12 @@ class FileStorage:
 		return FileStorage.__objects
 
 	def new(self, obj):
-		v = obj.__class__.__name__
+		print('hi')
+		v = 'obj.__class__.__name__'
 		FileStorage.__objects[f'{v}.{obj.id}'] = obj
 
 	def save(self):
-		print('hi')
+		print('hii')
 		dic = FileStorage.__objects
 		for k in dic:
 			if isinstance(dic[k], datetime.datetime):
@@ -31,4 +32,7 @@ class FileStorage:
 				FileStorage.__objects = json.load(f)
 		else:
 			pass
-
+'''
+storage = FileStorage()
+storage.reload()
+'''

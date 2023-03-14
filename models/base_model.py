@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 # Task: Defines the BaseModel class."""
 """Importing all files for the Class File"""
-
-import models 
+import models
+#from models.engine.file_storage import FileStorage
 from uuid import uuid4
 from datetime import datetime
 
 
-class BaseModel:
+class BaseModel():
     """Represents the BaseModel of the AirBnB project."""
 
     def __init__(self, *args, **kwargs):
@@ -32,7 +32,7 @@ class BaseModel:
                     self.__dict__[key] = value
 
             if not self.__dict__ in FileStorage.__objects:
-                self.storage.new()
+                storage.new(self)
 
         else:
             pass
@@ -43,7 +43,7 @@ class BaseModel:
         self.updated_at = datetime.now()
 
         '''Save the instance to the file_storage.'''
-        storage.save(self)
+		#self.storage.save()
 
     def to_dict(self):
         """Return the dictionary of the BaseModel instance.
